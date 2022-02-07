@@ -31,7 +31,7 @@ namespace GeradorLinhaDigitavelBoletoItau
                 var dadosMocados = new ParametroEntrada()
                 {
                     CdBanco = 341,//Código do Itaú
-                    DsCodigoBanco = "",
+                    DsCodigoBanco = "020",
 
                     NrAgencia = 1234,//Limitado a 4 caracteres
                     DsCodigoAgencia = "4321",
@@ -41,15 +41,15 @@ namespace GeradorLinhaDigitavelBoletoItau
                     CdCarteira = 109,
                     
                     CdCedente = 13,
-                    CdConvenioCobranca = 0,
+                    CdConvenioCobranca = 38,
 
-                    CdMensContrato = 0,
-                    CdNossoNumero = 0,
+                    CdMensContrato = 100,
+                    CdNossoNumero = 234,
                     
                     DtVencimento = Convert.ToDateTime("07/02/2022"),
                     SnCobrancaRegistrada = 'A',
                     TpProcessCb = 'A',
-                    VlMensalidade = 0,
+                    VlMensalidade = 3000,
 
                     CfValorBruto = 4000
                 };
@@ -78,15 +78,12 @@ namespace GeradorLinhaDigitavelBoletoItau
 
                 vprimeirocampo = vprimeirocampo.Append(Itau_fnModulo10(vprimeirocampo));
 
-                vprimeirocampo = MetodosJavaToCSharp.Substring(
-                    vprimeirocampo.ToString(), 
-                    MetodosJavaToCSharp.ToInt(1), 
-                    MetodosJavaToCSharp.ToInt(5))
-                    .Append(".").Append(MetodosJavaToCSharp.Substring(
-                        vprimeirocampo.ToString(), 
-                        MetodosJavaToCSharp.ToInt(6)
-                    )
-                );
+                //TODO: Lembrar de conferir a quantidade de casas que deve ser exibida
+                //vprimeirocampo = MetodosJavaToCSharp.Substring(vprimeirocampo.ToString(),MetodosJavaToCSharp.ToInt(1),MetodosJavaToCSharp.ToInt(5))
+                //    .Append(".")
+                //    .Append(MetodosJavaToCSharp.Substring(vprimeirocampo.ToString(),MetodosJavaToCSharp.ToInt(6)
+                //    )
+                //);
 
 
                 // Montagem do Segundo Campo
@@ -168,7 +165,7 @@ namespace GeradorLinhaDigitavelBoletoItau
                 vdv = Itau_fDvBarcode(vbarcode);
 
                 vbarcode = MetodosJavaToCSharp.Substring(vbarcode.ToString(), MetodosJavaToCSharp.ToInt(1), MetodosJavaToCSharp.ToInt(4)).Append(vdv)
-                    .Append(MetodosJavaToCSharp.Substring(vbarcode.ToString(), MetodosJavaToCSharp.ToInt(5), Convert.ToInt32(MetodosJavaToCSharp.Subtract(vbarcode.Length, 4))));
+                    .Append(MetodosJavaToCSharp.Substring(vbarcode.ToString(), MetodosJavaToCSharp.ToInt(5), Convert.ToInt32(MetodosJavaToCSharp.Subtract(vbarcode.Length, 4).ToString())));
 
                 return vbarcode;
 
@@ -435,7 +432,6 @@ namespace GeradorLinhaDigitavelBoletoItau
             }
             else
             {
-                vdvlinhaDig.Clear();
                 vdvlinhaDig.Append("0");
                 //vdvlinhaDig = toStr("0");//Linha original
             }

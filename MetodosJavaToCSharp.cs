@@ -10,9 +10,17 @@ namespace GeradorLinhaDigitavelBoletoItau
     {
         public static StringBuilder Lpad(object valor, int v1, string v2)
         {
-            var retorno = new StringBuilder();
-            var stringToChar = Convert.ToChar(v2);
-            return retorno.Append(valor.ToString().PadLeft(v1, stringToChar));
+            try
+            {
+                var retorno = new StringBuilder();
+                var stringToChar = Convert.ToChar(v2);
+                return retorno.Append(valor.ToString().PadLeft(v1, stringToChar));
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
         }
 
         public static StringBuilder Substring(string texto, int v1, int v2 = 0)
@@ -20,12 +28,22 @@ namespace GeradorLinhaDigitavelBoletoItau
             try
             {
                 var retorno = new StringBuilder();
-                return retorno.Append(texto.Substring(v1, v2 - 1));
+                if ((v1 > 0 && v2 > 0) && (v1+v2) <= texto.Length)
+                {
+                    retorno.Clear();
+                    return retorno.Append(texto.Substring(v1, v2));
+                }
+                else
+                {
+                    retorno.Clear();
+                    return retorno.Append("");
+                }
+                
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw new Exception(ex.Message);
             }
         }
 
@@ -43,10 +61,10 @@ namespace GeradorLinhaDigitavelBoletoItau
                 int.TryParse(valor.ToString(), out v);
                 return retorno.Append(v);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw new Exception(ex.Message);
             }
         }
 
@@ -58,10 +76,10 @@ namespace GeradorLinhaDigitavelBoletoItau
                 int.TryParse(valor.ToString(), out v);
                 return v;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw new Exception(ex.Message);
             }
         }
 
@@ -75,7 +93,13 @@ namespace GeradorLinhaDigitavelBoletoItau
         {
             try
             {
-                if (Convert.ToInt32(valor1.ToString()) >= valor2)
+                var v1 = 0;
+                int.TryParse(valor1.ToString(), out v1);
+
+                var v2 = 0;
+                int.TryParse(valor1.ToString(), out v2);
+
+                if (v1 >= v2)
                 {
                     return true;
                 }
@@ -84,10 +108,10 @@ namespace GeradorLinhaDigitavelBoletoItau
                     return false;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw new Exception(ex.Message);
             }
         }
 
@@ -101,7 +125,13 @@ namespace GeradorLinhaDigitavelBoletoItau
         {
             try
             {
-                if (Convert.ToInt32(valor1.ToString()) <= valor2)
+                var v1 = 0;
+                int.TryParse(valor1.ToString(), out v1);
+
+                var v2 = 0;
+                int.TryParse(valor1.ToString(), out v2);
+
+                if (v1 <= v2)
                 {
                     return true;
                 }
@@ -110,10 +140,10 @@ namespace GeradorLinhaDigitavelBoletoItau
                     return false;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw new Exception(ex.Message);
             }
         }
 
@@ -136,10 +166,10 @@ namespace GeradorLinhaDigitavelBoletoItau
 
                 return retorno.Append(v1 * v2);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw new Exception(ex.Message);
             }
         }
 
@@ -156,9 +186,10 @@ namespace GeradorLinhaDigitavelBoletoItau
 
                 return retorno.Append(valor1.ToString().TrimEnd());
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+
+                throw new Exception(ex.Message);
             }
         }
 
@@ -175,9 +206,10 @@ namespace GeradorLinhaDigitavelBoletoItau
 
                 return retorno.Append(valor1.ToString().TrimStart());
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+
+                throw new Exception(ex.Message);
             }
         }
 
@@ -195,10 +227,10 @@ namespace GeradorLinhaDigitavelBoletoItau
                 return retorno.Append(valor1.ToString());
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw new Exception(ex.Message);
             }
         }
 
@@ -225,10 +257,10 @@ namespace GeradorLinhaDigitavelBoletoItau
                 return retorno.Append(resultado);
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw new Exception(ex.Message);
             }
         }
 
@@ -255,10 +287,10 @@ namespace GeradorLinhaDigitavelBoletoItau
                 return retorno.Append(resultadoSubtracao);
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw new Exception(ex.Message);
             }
         }
 
@@ -277,10 +309,10 @@ namespace GeradorLinhaDigitavelBoletoItau
                 return retorno.Append(texto.ToString().Replace(valorAntigo.ToString(), valorNovo.ToString()));
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw new Exception(ex.Message);
             }
         }
 
